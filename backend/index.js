@@ -1,5 +1,17 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+
+mongoose
+  .connect(
+    'mongodb+srv://mariavarava176:LZYG5ZaMH8zpiDT5@cluster0.84am5lj.mongodb.net/blog?retryWrites=true&w=majority',
+  )
+  .then(() => {
+    console.log('DB is fine');
+  })
+  .catch((err) => {
+    console.log('Error in DB', err);
+  });
 
 const app = express();
 

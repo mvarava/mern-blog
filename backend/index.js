@@ -2,6 +2,9 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
+import { registerValidation } from './validations/auth.js';
+import UserModel from './models/User.js';
+
 mongoose
   .connect(
     'mongodb+srv://mariavarava176:LZYG5ZaMH8zpiDT5@cluster0.84am5lj.mongodb.net/blog?retryWrites=true&w=majority',
@@ -17,21 +20,15 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('This is where the fun begins');
-});
+app.post('/auth/login', registerValidation, async (req, res) => {
+  const errors = validationResult(req);
 
-app.post('/auth/login', (req, res) => {
-  const token = jwt.sign(
-    {
-      email: req.body.email,
-    },
-    'secret4444',
-  );
+  if (!errors.isEmpty()) {
+    return res.status(400).json(errors.array());
+  }
 
   res.json({
     success: true,
-    token,
   });
 });
 

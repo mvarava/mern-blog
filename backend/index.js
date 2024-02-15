@@ -1,9 +1,26 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('This is where the fun begins');
+});
+
+app.post('/auth/login', (req, res) => {
+  const token = jwt.sign(
+    {
+      email: req.body.email,
+    },
+    'secret4444',
+  );
+
+  res.json({
+    success: true,
+    token,
+  });
 });
 
 app.listen(4444, (err) => {

@@ -14,6 +14,37 @@ export const getAll = async (req, res) => {
   }
 };
 
+export const getOne = (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    PostModel.findOneAndUpdate(
+      {
+        _id: postId,
+      },
+      {
+        $inc: { viewsCount: 1 },
+      },
+      {
+        returnDocument: 'after',
+      },
+    ).then((post) => {
+      if (!post) {
+        return res.status(404).json({
+          message: 'Post not found',
+        });
+      }
+
+      res.json(post);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      messgae: 'Failed to get post',
+    });
+  }
+};
+
 export const create = async (req, res) => {
   try {
     const doc = new PostModel({

@@ -2,7 +2,12 @@ import PostModel from '../models/Post.js';
 
 export const getAll = async (req, res) => {
   try {
-    const posts = await PostModel.find().populate('user').exec();
+    const posts = await PostModel.find()
+      .populate({
+        path: 'user',
+        select: ['fullName', 'avatarUrl'],
+      })
+      .exec();
 
     res.json(posts);
   } catch (error) {
@@ -28,15 +33,20 @@ export const getOne = (req, res) => {
       {
         returnDocument: 'after',
       },
-    ).then((post) => {
-      if (!post) {
-        return res.status(404).json({
-          message: 'Post not found',
-        });
-      }
+    )
+      .populate({
+        path: 'user',
+        select: ['fullName', 'avatarUrl'],
+      })
+      .then((post) => {
+        if (!post) {
+          return res.status(404).json({
+            message: 'Post not found',
+          });
+        }
 
-      res.json(post);
-    });
+        res.json(post);
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({

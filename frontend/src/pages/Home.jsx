@@ -41,7 +41,8 @@ export const Home = () => {
               {
                 user: {
                   fullName: 'Hayden Christensen',
-                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
+                  avatarUrl:
+                    'https://www.google.com/url?sa=i&url=https%3A%2F%2Ffinance.yahoo.com%2Fnews%2Fhayden-christensen-anakin-skywalker-originally-221207734.html&psig=AOvVaw2hf-62nFcsiCw31DYJSvCm&ust=1708245416002000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJC2v5r8sYQDFQAAAAAdAAAAABAE',
                 },
                 text: 'This is test comment',
               },

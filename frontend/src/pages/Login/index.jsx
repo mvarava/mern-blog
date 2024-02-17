@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import styles from './Login.module.scss';
-import { fetchAuth, selectIsAuth } from '../../redux/slices/auth';
+import { fetchLogin, selectIsAuth } from '../../redux/slices/auth';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -27,9 +27,19 @@ export const Login = () => {
     mode: 'onBlur',
   });
 
-  const onSubmitHandler = (values) => {
-    dispatch(fetchAuth(values));
+  const onSubmitHandler = async (values) => {
+    const data = await dispatch(fetchLogin(values));
+
+    if (!data.payload) {
+      return alert('Failed to log in');
+    }
+
+    if ('token' in data.payload) {
+      localStorage.setItem('token', data.payload.token);
+    }
   };
+
+  useEffect(() => {}, []);
 
   if (isAuth) {
     return <Navigate to="/" />;

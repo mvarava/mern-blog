@@ -17,18 +17,17 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const onSubmitHandler = async (values) => {
-    const data = await dispatch(fetchLogin(values));
+    const data = dispatch(fetchLogin(values));
 
     if (!data.payload) {
       return alert('Failed to log in');
@@ -38,8 +37,6 @@ export const Login = () => {
       localStorage.setItem('token', data.payload.token);
     }
   };
-
-  useEffect(() => {}, []);
 
   if (isAuth) {
     return <Navigate to="/" />;
@@ -69,7 +66,7 @@ export const Login = () => {
           {...register('password', { required: 'Enter password' })}
           fullWidth
         />
-        <Button type="submit" size="large" variant="contained" fullWidth>
+        <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
           Log in
         </Button>
       </form>

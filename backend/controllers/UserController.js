@@ -22,7 +22,7 @@ export const register = async (req, res) => {
       {
         _id: user._id,
       },
-      'secret44',
+      'secret55',
       {
         expiresIn: '30d',
       },
@@ -65,7 +65,7 @@ export const login = async (req, res) => {
       {
         _id: user._id,
       },
-      'secret44',
+      'secret55',
       {
         expiresIn: '30d',
       },

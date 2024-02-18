@@ -11,7 +11,7 @@ import { handleValidationErrors, checkAuth } from './utils/index.js';
 
 mongoose
   .connect(
-    'mongodb+srv://mariavarava176:LZYG5ZaMH8zpiDT5@cluster0.84am5lj.mongodb.net/blog?retryWrites=true&w=majority',
+    'mongodb+srv://mariavarava176:v6tuoejKXMh3wKRl@cluster0.2qjmyqd.mongodb.net/blog?retryWrites=true&w=majority',
   )
   .then(() => {
     console.log('DB is fine');
@@ -62,7 +62,7 @@ app.patch(
   PostController.update,
 );
 
-app.listen(4444, (err) => {
+app.listen(5555, (err) => {
   if (err) {
     return console.log(err);
   }

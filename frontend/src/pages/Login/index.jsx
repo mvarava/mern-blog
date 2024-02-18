@@ -24,7 +24,7 @@ export const Login = () => {
       email: '',
       password: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const onSubmitHandler = async (values) => {
@@ -38,8 +38,6 @@ export const Login = () => {
       localStorage.setItem('token', data.payload.token);
     }
   };
-
-  useEffect(() => {}, []);
 
   if (isAuth) {
     return <Navigate to="/" />;
@@ -69,7 +67,7 @@ export const Login = () => {
           {...register('password', { required: 'Enter password' })}
           fullWidth
         />
-        <Button type="submit" size="large" variant="contained" fullWidth>
+        <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
           Log in
         </Button>
       </form>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,7 +11,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { SideBlock } from './SideBlock';
 import { Link } from 'react-router-dom';
 
-export const TagsBlock = ({ items, isLoading = true }) => {
+export const TagsBlock = memo(({ items, isLoading = true }) => {
   const uniqueItems = [...new Set(items)];
 
   return (
@@ -32,4 +32,4 @@ export const TagsBlock = ({ items, isLoading = true }) => {
       </List>
     </SideBlock>
   );
-};
+});

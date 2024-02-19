@@ -42,11 +42,16 @@ export const getPostsWithTag = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
+    const { sortValue } = req.params;
+    let sortQuery = {};
+    sortQuery[sortValue] = -1;
+
     const posts = await PostModel.find()
       .populate({
         path: 'user',
         select: ['fullName', 'avatarUrl'],
       })
+      .sort(sortQuery)
       .exec();
 
     res.json(posts);

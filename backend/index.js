@@ -50,7 +50,7 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 app.get('/tags', PostController.getLastTags);
 app.get('/tags/:tag', PostController.getPostsWithTag);
 
-app.get('/posts', PostController.getAll);
+app.get('/posts/sortBy/:sortValue', PostController.getAll);
 app.get('/posts/tags', PostController.getLastTags);
 app.get('/posts/:id', PostController.getOne);
 app.delete('/posts/:id', checkAuth, PostController.remove);

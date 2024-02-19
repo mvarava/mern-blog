@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Grid from '@mui/material/Grid';
@@ -11,23 +11,34 @@ import { fetchPosts, fetchTags } from '../redux/slices/posts';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const { posts, tags } = useSelector((state) => state.posts);
 
+  const { posts, tags } = useSelector((state) => state.posts);
   const userData = useSelector((state) => state.auth.data);
+
+  const [sortValue, setSortValue] = useState('createdAt');
+  const [activeTab, setActiveTab] = useState(0);
 
   const isPostsLoading = posts.status === 'loading';
   const isTagsLoading = tags.status === 'loading';
 
   useEffect(() => {
-    dispatch(fetchPosts());
     dispatch(fetchTags());
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchPosts(sortValue));
+  }, [sortValue]);
+
+  const tabClickHandler = (value) => {
+    setSortValue(value === 0 ? 'createdAt' : 'viewsCount');
+    setActiveTab(value);
+  };
+
   return (
     <>
-      <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
-        <Tab label="New" />
-        <Tab label="Popular" />
+      <Tabs style={{ marginBottom: 15 }} value={activeTab} aria-label="basic tabs example">
+        <Tab onClick={() => tabClickHandler(0)} label="New" />
+        <Tab onClick={() => tabClickHandler(1)} label="Popular" />
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>

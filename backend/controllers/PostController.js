@@ -19,6 +19,27 @@ export const getLastTags = async (req, res) => {
   }
 };
 
+export const getPostsWithTag = async (req, res) => {
+  try {
+    const postTag = req.params.tag;
+    const posts = await PostModel.find()
+      .populate({
+        path: 'user',
+        select: ['fullName', 'avatarUrl'],
+      })
+      .exec();
+
+    const filteredPosts = posts.filter((post) => post.tags.includes(postTag));
+
+    res.json(filteredPosts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      messgae: 'Failed to get posts with needed tag',
+    });
+  }
+};
+
 export const getAll = async (req, res) => {
   try {
     const posts = await PostModel.find()

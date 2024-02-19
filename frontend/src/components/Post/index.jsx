@@ -9,7 +9,7 @@ import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
 import { PostSkeleton } from './Skeleton';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchRemovePost } from '../../redux/slices/posts';
 
@@ -54,11 +54,13 @@ export const Post = ({
         </div>
       )}
       {imageUrl && (
-        <img
-          className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
-          alt={title}
-        />
+        <Link to={`/posts/${id}`}>
+          <img
+            className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
+            src={imageUrl}
+            alt={title}
+          />
+        </Link>
       )}
       <div className={styles.wrapper}>
         <UserInfo {...user} additionalText={createdAt} />
@@ -69,7 +71,7 @@ export const Post = ({
           <ul className={styles.tags}>
             {tags.map((name) => (
               <li key={name}>
-                <Link to={`/tag/${name}`}>#{name}</Link>
+                <Link to={`/tags/${name}`}>#{name}</Link>
               </li>
             ))}
           </ul>

@@ -96,9 +96,9 @@ export const AddPost = () => {
   const options = useMemo(
     () => ({
       spellChecker: false,
-      maxHeight: '400px',
+      maxHeight: '200px',
       autofocus: true,
-      placeholder: 'Enter text...',
+      placeholder: 'Enter text here...',
       status: false,
       autosave: {
         enabled: true,

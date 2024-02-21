@@ -3,7 +3,13 @@ import CommentModel from '../models/Comment.js';
 
 export const getComments = async (req, res) => {
   try {
-    const comments = await CommentModel.find().limit(5).exec();
+    const comments = await CommentModel.find()
+      .limit(5)
+      .populate({
+        path: 'user',
+        select: ['fullName', 'avatarUrl'],
+      })
+      .exec();
 
     res.json(comments);
   } catch (error) {
@@ -19,7 +25,12 @@ export const getPostComments = async (req, res) => {
   try {
     const postId = req.params.id;
 
-    const comments = await CommentModel.find({ post: postId }).exec();
+    const comments = await CommentModel.find({ post: postId })
+      .populate({
+        path: 'user',
+        select: ['fullName', 'avatarUrl'],
+      })
+      .exec();
 
     res.json(comments);
   } catch (error) {

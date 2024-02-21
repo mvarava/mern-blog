@@ -17,18 +17,22 @@ export const TagsBlock = memo(({ items, isLoading = true }) => {
   return (
     <SideBlock title="Tags">
       <List>
-        {(isLoading ? [...Array(5)] : uniqueItems).map((name, i) => (
-          <Link key={i} style={{ textDecoration: 'none', color: 'black' }} to={`/tags/${name}`}>
-            <ListItem key={i} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <TagIcon />
-                </ListItemIcon>
-                {isLoading ? <Skeleton width={100} /> : <ListItemText primary={name} />}
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+        {items.length > 0 ? (
+          (isLoading ? [...Array(5)] : uniqueItems).map((name, i) => (
+            <Link key={i} style={{ textDecoration: 'none', color: 'black' }} to={`/tags/${name}`}>
+              <ListItem key={i} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <TagIcon />
+                  </ListItemIcon>
+                  {isLoading ? <Skeleton width={100} /> : <ListItemText primary={name} />}
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))
+        ) : (
+          <ListItem>No tags yet</ListItem>
+        )}
       </List>
     </SideBlock>
   );

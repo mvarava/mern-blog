@@ -52,32 +52,15 @@ export const FullPost = () => {
         <ReactMarkdown children={data.text} />
       </Post>
       <CommentsBlock
-        items={
-          comments.items.map((comment) => {
-            return {
-              user: {
-                fullName: comment.user.fullName,
-                avatarUrl: comment.user.avatarUrl,
-              },
-              text: comment.text,
-            };
-          }) /*[
-          {
+        items={comments.items.map((comment) => {
+          return {
             user: {
-              fullName: 'Hayden Christensen',
-              avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
+              fullName: comment.user.fullName,
+              avatarUrl: comment.user.avatarUrl,
             },
-            text: 'Text comment ',
-          },
-          {
-            user: {
-              fullName: 'Tobias Forge',
-              avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
-            },
-            text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
-          },
-        ]*/
-        }
+            text: comment.text,
+          };
+        })}
         isLoading={false}>
         <AddComment id={id} />
       </CommentsBlock>

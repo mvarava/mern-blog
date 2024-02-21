@@ -8,12 +8,14 @@ import { Post } from '../components/Post';
 import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
 import { fetchPosts, fetchTags } from '../redux/slices/posts';
+import { fetchAllComments } from '../redux/slices/comments';
 
 export const Home = () => {
   const dispatch = useDispatch();
 
   const { posts, tags } = useSelector((state) => state.posts);
   const userData = useSelector((state) => state.auth.data);
+  const comments = useSelector((state) => state.comments);
 
   const [sortValue, setSortValue] = useState('createdAt');
   const [activeTab, setActiveTab] = useState(0);
@@ -23,6 +25,7 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(fetchTags());
+    dispatch(fetchAllComments());
   }, []);
 
   useEffect(() => {
@@ -64,7 +67,17 @@ export const Home = () => {
         <Grid xs={4} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
-            items={[
+            items={
+              comments.items.map((item) => {
+                return {
+                  user: {
+                    fullName: item.user.fullName,
+                    avatarUrl: item.user.avatarUrl,
+                  },
+                  text: item.text,
+                };
+              })
+              /*[
               {
                 user: {
                   fullName: 'Hayden Christensen',
@@ -80,7 +93,8 @@ export const Home = () => {
                 },
                 text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
               },
-            ]}
+            ]*/
+            }
             isLoading={false}
           />
         </Grid>

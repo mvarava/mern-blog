@@ -3,9 +3,14 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import cors from 'cors';
 
-import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
+import {
+  registerValidation,
+  loginValidation,
+  postCreateValidation,
+  commentCreateValidation,
+} from './validations.js';
 
-import { UserController, PostController } from './controllers/index.js';
+import { UserController, PostController, CommentController } from './controllers/index.js';
 
 import { handleValidationErrors, checkAuth } from './utils/index.js';
 
@@ -49,6 +54,10 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 
 app.get('/tags', PostController.getLastTags);
 app.get('/tags/:tag', PostController.getPostsWithTag);
+
+app.get('/comments', CommentController.getComments);
+app.get('/posts/:id/comments', CommentController.getPostComments);
+app.post('/posts/:id/comments', checkAuth, CommentController.create);
 
 app.get('/posts/sortBy/:sortValue', PostController.getAll);
 app.get('/posts/tags', PostController.getLastTags);

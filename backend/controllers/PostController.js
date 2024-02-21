@@ -73,7 +73,9 @@ export const getOne = (req, res) => {
         _id: postId,
       },
       {
-        $inc: { viewsCount: 1 },
+        $inc: {
+          viewsCount: 1,
+        },
       },
       {
         returnDocument: 'after',

@@ -57,7 +57,7 @@ export const Home = () => {
                 user={post.user}
                 createdAt={post.createdAt}
                 viewsCount={post.viewsCount}
-                commentsCount={3}
+                commentsCount={comments.items.filter((comment) => comment.post === post._id).length}
                 tags={post.tags}
                 isEditable={userData?._id === post.user._id}
               />
@@ -67,34 +67,15 @@ export const Home = () => {
         <Grid xs={4} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
-            items={
-              comments.items.map((item) => {
-                return {
-                  user: {
-                    fullName: item.user.fullName,
-                    avatarUrl: item.user.avatarUrl,
-                  },
-                  text: item.text,
-                };
-              })
-              /*[
-              {
+            items={comments.items.map((item) => {
+              return {
                 user: {
-                  fullName: 'Hayden Christensen',
-                  avatarUrl:
-                    'https://www.google.com/url?sa=i&url=https%3A%2F%2Ffinance.yahoo.com%2Fnews%2Fhayden-christensen-anakin-skywalker-originally-221207734.html&psig=AOvVaw2hf-62nFcsiCw31DYJSvCm&ust=1708245416002000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJC2v5r8sYQDFQAAAAAdAAAAABAE',
+                  fullName: item.user.fullName,
+                  avatarUrl: item.user.avatarUrl,
                 },
-                text: 'This is test comment',
-              },
-              {
-                user: {
-                  fullName: 'Tobias Forge',
-                  avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
-                },
-                text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
-              },
-            ]*/
-            }
+                text: item.text,
+              };
+            })}
             isLoading={false}
           />
         </Grid>

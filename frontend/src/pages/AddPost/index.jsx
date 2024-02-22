@@ -115,6 +115,7 @@ export const AddPost = () => {
   return (
     <Paper style={{ padding: 30 }}>
       <Button
+        style={{ marginRight: 5, marginBottom: 10 }}
         onClick={() => {
           inputFileRef.current.click();
         }}
@@ -125,7 +126,11 @@ export const AddPost = () => {
       <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
         <>
-          <Button variant="contained" color="error" onClick={onClickRemoveImage}>
+          <Button
+            style={{ marginLeft: 5, marginBottom: 10 }}
+            variant="contained"
+            color="error"
+            onClick={onClickRemoveImage}>
             Delete
           </Button>
           <img className={styles.image} src={`http://localhost:5555${imageUrl}`} alt="Uploaded" />

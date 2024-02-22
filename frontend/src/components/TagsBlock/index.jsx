@@ -8,17 +8,18 @@ import TagIcon from '@mui/icons-material/Tag';
 import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
 
-import { SideBlock } from './SideBlock';
+import styles from './TagsBlock.module.scss';
+import { SideBlock } from '../SideBlock';
 import { Link } from 'react-router-dom';
 
 export const TagsBlock = memo(({ items, isLoading = true }) => {
   const uniqueItems = [...new Set(items)];
 
   return (
-    <SideBlock title="Tags">
-      <List>
-        {items.length > 0 ? (
-          (isLoading ? [...Array(5)] : uniqueItems).map((name, i) => (
+    <div className={styles.tags}>
+      <SideBlock title="Tags">
+        <List>
+          {(isLoading ? [...Array(5)] : uniqueItems).map((name, i) => (
             <Link key={i} style={{ textDecoration: 'none', color: 'black' }} to={`/tags/${name}`}>
               <ListItem key={i} disablePadding>
                 <ListItemButton>
@@ -29,11 +30,9 @@ export const TagsBlock = memo(({ items, isLoading = true }) => {
                 </ListItemButton>
               </ListItem>
             </Link>
-          ))
-        ) : (
-          <ListItem>No tags yet</ListItem>
-        )}
-      </List>
-    </SideBlock>
+          ))}
+        </List>
+      </SideBlock>
+    </div>
   );
 });

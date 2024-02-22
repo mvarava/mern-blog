@@ -1,4 +1,5 @@
 import PostModel from '../models/Post.js';
+import CommentModel from '../models/Comment.js';
 
 export const getLastTags = async (req, res) => {
   try {
@@ -105,6 +106,14 @@ export const getOne = (req, res) => {
 export const remove = async (req, res) => {
   try {
     const postId = req.params.id;
+
+    CommentModel.deleteMany({ post: postId })
+      .then(() => {
+        console.log('success');
+      })
+      .catch((error) => {
+        console.log('error while deleting comment', error);
+      });
 
     PostModel.findOneAndDelete({
       _id: postId,
